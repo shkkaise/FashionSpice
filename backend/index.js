@@ -1,21 +1,26 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const { MongoClient } = require('mongodb');
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
 const port = process.env.PORT || 4000;
-
+const uri = "mongodb://localhost:27017/e-commerce";
+const client = new MongoClient(uri);
+const { ObjectId } = require('mongodb');
 app.use(express.json());
 app.use(cors());
 
 // Database Connection With MongoDB
 
-mongoose.connect("mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce");
-    // await mongoose.connect("mongodb://localhost:27017/e-commerce")
-    // console.log("DB Connected !!!");
-
+// mongoose.connect("mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce");
+async function main() {
+    await mongoose.connect("mongodb://localhost:27017/e-commerce")
+    // await mongoose.connect("mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce")
+    console.log("DB Connected !!!");
+}
 
 // paste your mongoDB Connection string above with password
 // password should not contain '@' special character
