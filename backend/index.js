@@ -213,22 +213,33 @@ app.post("/relatedproducts", async (req, res) => {
 app.post('/addtocart', fetchuser, async (req, res) => {
   console.log("Add Cart");
   let userData = await Users.findOne({ _id: req.user.id });
-  userData.cartData[req.body.itemId] += 1;
+  if (!userData || !userData.cartData) {
+    return res.status(400).send("User data or cart data not found");
+  }
+  if (!req.body.itemId) {
+    return res.status(400).send("Item ID not provided");
+  }
+  userData.cartData[req.body.itemId] = (userData.cartData[req.body.itemId] || 0) + 1;
   await Users.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
-  res.send("Added")
-})
-
+  res.send("Added");
+});
 
 // Create an endpoint for removing the product in cart
 app.post('/removefromcart', fetchuser, async (req, res) => {
   console.log("Remove Cart");
   let userData = await Users.findOne({ _id: req.user.id });
-  if (userData.cartData[req.body.itemId] != 0) {
+  if (!userData || !userData.cartData) {
+    return res.status(400).send("User data or cart data not found");
+  }
+  if (!req.body.itemId) {
+    return res.status(400).send("Item ID not provided");
+  }
+  if (userData.cartData[req.body.itemId] > 0) {
     userData.cartData[req.body.itemId] -= 1;
   }
   await Users.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
   res.send("Removed");
-})
+  })
 
 
 // Create an endpoint for getting cartdata of user
