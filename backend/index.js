@@ -8,19 +8,41 @@ const path = require("path");
 const cors = require("cors");
 const port = process.env.PORT || 4000;
 const uri = "mongodb://localhost:27017/e-commerce";
+// const uri = "mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce";
 const client = new MongoClient(uri);
 const { ObjectId } = require('mongodb');
 app.use(express.json());
 app.use(cors());
 
 // Database Connection With MongoDB
-
-// mongoose.connect("mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce");
-async function main() {
-    await mongoose.connect("mongodb://localhost:27017/e-commerce")
-    // await mongoose.connect("mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce")
-    console.log("DB Connected !!!");
+async function main(){
+    /**
+     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
+     * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
+     */
+    // const uri = "mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce?retryWrites=true&w=majority";
+    const uri = "mongodb://localhost:27017/e-commerce";
+    const client = new MongoClient(uri);
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+        console.log("DB Connected !!!");
+        // Make the appropriate DB calls
+        // await  listDatabases(client);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
 }
+main().catch(console.error);
+// mongoose.connect("mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce");
+// async function main() {
+    // await mongoose.connect("mongodb://localhost:27017/e-commerce")
+    // await client.connect();
+    // await mongoose.connect("mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce")
+    // console.log("DB Connected !!!");
+// }
 
 // paste your mongoDB Connection string above with password
 // password should not contain '@' special character
