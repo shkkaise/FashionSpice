@@ -7,8 +7,8 @@ const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
 const port = process.env.PORT || 4000;
-const uri = "mongodb://localhost:27017/e-commerce";
-// const uri = "mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce";
+// const uri = "mongodb://localhost:27017/e-commerce";
+const uri = "mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce";
 const client = new MongoClient(uri);
 const { ObjectId } = require('mongodb');
 app.use(express.json());
@@ -20,8 +20,8 @@ async function main(){
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
      */
-    // const uri = "mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce?retryWrites=true&w=majority";
-    const uri = "mongodb://localhost:27017/e-commerce";
+    const uri = "mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce";
+    // const uri = "mongodb://localhost:27017/e-commerce";
     const client = new MongoClient(uri);
     try {
         // Connect to the MongoDB cluster
