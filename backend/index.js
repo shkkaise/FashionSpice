@@ -25,6 +25,7 @@ async function main(){
     const client = new MongoClient(uri);
     try {
         // Connect to the MongoDB cluster
+        await mongoose.connect("mongodb+srv://fspiceinfo:mQjKeTDPwmGgoW9w@cluster0.n9u6q.mongodb.net/e-commerce")
         await client.connect();
         console.log("DB Connected !!!");
         // Make the appropriate DB calls
